@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NewsMood</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header>
+        <h1>NewsMood</h1>
+        <p>Реальные новости. Разные эмоции. Те же факты.</p>
+    </header>
+    <nav class="mood-selector">
+        <button class="mood-btn active" data-mood="happy">😊 Радостно</button>
+        <button class="mood-btn" data-mood="sad">😢 Грустно</button>
+        <button class="mood-btn" data-mood="ironic">😏 Иронично</button>
+        <button class="mood-btn" data-mood="anxious">😰 Тревожно</button>
+        <button class="mood-btn" data-mood="optimistic">🌤 Оптимистично</button>
+        <button class="mood-btn" data-mood="sarcasm">😈 Сарказм</button>
+    </nav>
+    <main id="news-grid" class="news-grid">
+        <div class="loader">Загрузка реальных новостей...</div>
+    </main>
+    <div id="modal" class="modal hidden">
+        <div class="modal-content">
+            <button class="close-btn" onclick="closeModal()">×</button>
+            <div class="modal-grid">
+                <div class="modal-left">
+                    <h2 id="modal-title"></h2>
+                    <div class="source-info">
+                        Источник: <span id="modal-source"></span>
+                        <a id="modal-source-link" href="#" target="_blank">Читать оригинал →</a>
+                    </div>
+                    <h3>Оригинал</h3>
+                    <div id="modal-original" class="article-text"></div>
+                </div>
+                <div class="modal-right">
+                    <h3>Версия: <span id="modal-mood"></span></h3>
+                    <div id="modal-rewritten" class="article-text"></div>
+                    <div id="fact-check-status" class="fact-check"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="app.js"></script>
+</body>
+</html>
