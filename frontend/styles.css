@@ -3,29 +3,36 @@ body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helve
 header { text-align: center; padding: 40px 20px; background: #fff; border-bottom: 1px solid #eaeaea; margin-bottom: 20px; }
 header h1 { font-size: 2.5rem; color: #1a1a1a; margin-bottom: 5px; }
 header p { color: #666; font-size: 1.1rem; }
-.mood-selector { display: flex; flex-wrap: wrap; justify-content: center; gap: 10px; padding: 0 20px 30px; }
-.mood-btn { padding: 10px 20px; border: 1px solid #ddd; border-radius: 30px; background: #fff; cursor: pointer; font-size: 1rem; transition: all 0.2s; }
-.mood-btn:hover { background: #f0f0f0; }
-.mood-btn.active { background: #1a1a1a; color: #fff; border-color: #1a1a1a; }
+
 .news-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; padding: 0 20px 40px; max-width: 1200px; margin: 0 auto; }
 .news-card { background: #fff; border-radius: 12px; padding: 20px; box-shadow: 0 2px 8px rgba(0,0,0,0.05); cursor: pointer; transition: transform 0.2s, box-shadow 0.2s; border: 1px solid #eee; }
 .news-card:hover { transform: translateY(-3px); box-shadow: 0 4px 12px rgba(0,0,0,0.1); }
 .news-card h3 { font-size: 1.2rem; margin-bottom: 10px; }
 .news-card .source { font-size: 0.9rem; color: #888; margin-bottom: 10px; }
 .news-card .desc { font-size: 0.95rem; color: #444; }
+
 .modal { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.6); display: flex; justify-content: center; align-items: center; z-index: 100; padding: 20px; }
 .modal.hidden { display: none; }
 .modal-content { background: #fff; border-radius: 16px; width: 100%; max-width: 1000px; max-height: 90vh; overflow-y: auto; padding: 30px; position: relative; }
 .close-btn { position: absolute; top: 15px; right: 20px; background: none; border: none; font-size: 2rem; cursor: pointer; color: #666; }
-.modal-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 30px; margin-top: 20px; }
-.modal-left h2 { margin-bottom: 10px; }
-.source-info { margin-bottom: 20px; font-size: 0.9rem; color: #666; }
+
+.modal-header { margin-bottom: 20px; border-bottom: 1px solid #eee; padding-bottom: 15px; }
+.modal-header h2 { margin-bottom: 10px; font-size: 1.5rem; }
+.source-info { font-size: 0.9rem; color: #666; }
 .source-info a { color: #007bff; text-decoration: none; margin-left: 10px; }
+
+.mood-selector { display: flex; flex-wrap: wrap; justify-content: center; gap: 10px; margin-bottom: 30px; padding: 15px; background: #f8f9fa; border-radius: 12px; }
+.mood-btn { padding: 10px 20px; border: 1px solid #ddd; border-radius: 30px; background: #fff; cursor: pointer; font-size: 1rem; transition: all 0.2s; }
+.mood-btn:hover { background: #f0f0f0; }
+.mood-btn.active { background: #1a1a1a; color: #fff; border-color: #1a1a1a; }
+
+.modal-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 30px; }
 .article-text { font-size: 1rem; white-space: pre-wrap; }
 .fact-check { margin-top: 20px; font-weight: bold; }
 .fact-check.passed { color: #28a745; }
 .fact-check.failed { color: #dc3545; }
 .fact-check.loading { color: #ffc107; }
 .loader { grid-column: 1 / -1; text-align: center; padding: 50px; color: #666; }
+
 @media (max-width: 900px) { .news-grid { grid-template-columns: repeat(2, 1fr); } }
 @media (max-width: 600px) { .news-grid { grid-template-columns: 1fr; } .modal-grid { grid-template-columns: 1fr; } .mood-selector { overflow-x: auto; flex-wrap: nowrap; justify-content: flex-start; } }

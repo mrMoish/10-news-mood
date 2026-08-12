@@ -12,23 +12,31 @@ async function loadNews() {
         const card = document.createElement('div');
         card.className = 'news-card';
         card.onclick = () => openModal(n.id);
-        card.innerHTML = `<h3>${n.title}</h3><div class="source">${n.source_name}</div><div class="desc">${n.rss_description ? n.rss_description.substring(0, 100) : 'Нет описания'}...</div>`;
+        card.innerHTML = `<h3>${n.title}</h3><div class="source">${n.source_name}</div><div class="desc">${n.rss_description ? n.rss_description.substring(0, 150) : 'Нет описания'}...</div>`;
         grid.appendChild(card);
     });
 }
 
+// Слушатель кликов по настроению внутри modal
 document.querySelectorAll('.mood-btn').forEach(btn => {
     btn.addEventListener('click', () => {
         document.querySelectorAll('.mood-btn').forEach(b => b.classList.remove('active'));
         btn.classList.add('active');
         currentMood = btn.dataset.mood;
-        if (currentNewsId && !document.getElementById('modal').classList.contains('hidden')) { loadRewrittenNews(currentNewsId); }
+        if (currentNewsId) { loadRewrittenNews(currentNewsId); }
     });
 });
 
 async function openModal(id) {
     currentNewsId = id;
     document.getElementById('modal').classList.remove('hidden');
+
+    // Сбрасываем на "Радостно" при каждом открытии
+    document.querySelectorAll('.mood-btn').forEach(b => b.classList.remove('active'));
+    const happyBtn = document.querySelector('.mood-btn[data-mood="happy"]');
+    if(happyBtn) happyBtn.classList.add('active');
+    currentMood = 'happy';
+
     const res = await fetch(`/api/news/${id}`);
     const n = await res.json();
     document.getElementById('modal-title').innerText = n.title;
@@ -36,6 +44,8 @@ async function openModal(id) {
     document.getElementById('modal-source-link').href = n.source_url;
     document.getElementById('modal-original').innerText = n.original_text || n.rss_description;
     document.getElementById('modal-mood').innerText = currentMood;
+
+    // Сразу запрашиваем генерацию для дефолтного настроения
     await loadRewrittenNews(id);
 }
 
@@ -47,6 +57,9 @@ async function loadRewrittenNews(id) {
     rewrittenDiv.innerHTML = '<div class="loader">AI переписывает новость...</div>';
     statusDiv.className = 'fact-check loading';
     statusDiv.innerText = 'Проверяем факты...';
+
+    document.getElementById('modal-mood').innerText = currentMood;
+
     try {
         const res = await fetch(`/api/news/${id}/rewrite`, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ mood: currentMood }) });
         if (!res.ok) throw new Error('Failed');
